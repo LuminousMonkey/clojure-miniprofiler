@@ -1,3 +1,3 @@
-[submodule "resources"]
-	path = resources
+[submodule "resources/miniprofiler-ui"]
+	path = resources/miniprofiler-ui
 	url = https://github.com/MiniProfiler/ui.git
