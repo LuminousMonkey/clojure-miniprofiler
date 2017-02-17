@@ -1,6 +1,7 @@
 (ns clojure-miniprofiler.example
   (:use compojure.core
-        clojure-miniprofiler))
+        clojure-miniprofiler)
+  (:require [clojure-miniprofiler.storages.in-memory :refer [in-memory-store]]))
 
 (defn another-slow []
   (custom-timing "sql" "query" "SELECT * FROM POSTS"
@@ -31,4 +32,4 @@
 (defonce in-memory-store-instance (in-memory-store))
 
 (def app
-  (wrap-miniprofiler app-routes {}))
+  (wrap-miniprofiler app-routes {:position "left"}))

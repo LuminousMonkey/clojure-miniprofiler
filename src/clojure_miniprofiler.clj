@@ -8,23 +8,11 @@
             [ring.middleware.params :as params]
             [ring.middleware.keyword-params :as keyword-params]
             [ring.middleware.nested-params :as nested-params]
+            [clojure-miniprofiler.store :refer [save fetch]]
+            [clojure-miniprofiler.storages.in-memory :refer [in-memory-store]]
             [clojure-miniprofiler.types :refer :all]
-            [clojure-miniprofiler.store :refer :all]
+            [clojure-miniprofiler.timing :refer [->Timing ->CustomTiming]]
             fipp.edn))
-
-;; storage here
-(deftype InMemoryStore [store]
-  Storage
-  (save [_ profile]
-    (swap! store assoc (get profile "Id") profile))
-  (fetch [_ id]
-    (get @store id)))
-
-(defn in-memory-store
-  "creates an in-memory miniprofiler results store"
-  []
-  (InMemoryStore.
-    (atom {})))
 
 (defn uuid
   "generates an uuid"
