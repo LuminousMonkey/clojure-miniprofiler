@@ -12,20 +12,10 @@
             [clojure-miniprofiler.storages.in-memory :refer [in-memory-store]]
             [clojure-miniprofiler.types :refer :all]
             [clojure-miniprofiler.timing :refer [->Timing ->CustomTiming]]
+            [clojure-miniprofiler.util :refer [uuid distance-of-ns-time current-ms]]
             fipp.edn))
 
-(defn uuid
-  "generates an uuid"
-  []
-  (str  (java.util.UUID/randomUUID)))
-
-(defn distance-of-ns-time [ns0 ns1]
-  (/ (float (- ns1 ns0)) 1000000))
-
 (def ^:dynamic *current-miniprofiler* nil)
-
-(defn current-ms []
-  (System/currentTimeMillis))
 
 (defn ms-since-start []
   (distance-of-ns-time (get @*current-miniprofiler* :start-ns) (System/nanoTime)))
@@ -152,7 +142,7 @@
       (str (.toUpperCase (name (:request-method req))) " " (:uri req))
       (current-ms)
       0
-      (:hostname initial-opts )
+      (:hostname initial-opts)
       nil
       [])
     (System/nanoTime)))
